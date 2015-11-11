@@ -5,14 +5,14 @@ import pandas
 def extract(version):
 	corpus = []
 	y_test = []
-	polarity = str(version)+'_polarity'
-	os.chdir("./op_spam_v1.4/" + str(polarity))
-	for f in sorted(os.listdir('.')):
+	name = './op_spam_v1.4/'+str(version)+'_polarity'
+	for f in sorted(os.listdir(name)):
 		types = ['truthful', 'deceptive']
 		for t in types:
 			if t in f:
+				print(name)
 				for i in range(1,4): 
-					filename = "./" + f + "/fold" + str(i) 
+					filename = name + "/" + f + "/fold" + str(i) 
 					for r in sorted(os.listdir(filename)):
 						if '.txt' in r:
 							with codecs.open(filename + "/" + r, "r", "utf-8", "ignore") as d:
@@ -29,7 +29,3 @@ def extract(version):
 	return corpus, y_test
 
 
-
-if __name__ == "__main__":
-	pos_corpus, pos_test = extract('positive')
-	neg_corpus, neg_test = extract('negative')
