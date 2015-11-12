@@ -1,31 +1,34 @@
 import os, codecs
-import numpy
-import pandas
+import numpy as np
+import pandas as pd
 
 def extract(version):
-	corpus = []
-	y_test = []
+	corpus = {}
+	y = {}
 	name = './op_spam_v1.4/'+str(version)+'_polarity'
 	for f in sorted(os.listdir(name)):
 		types = ['truthful', 'deceptive']
 		for t in types:
 			if t in f:
-				print(name)
-				for i in range(1,4): 
+				for i in range(1,6): 
 					filename = name + "/" + f + "/fold" + str(i) 
 					for r in sorted(os.listdir(filename)):
 						if '.txt' in r:
 							with codecs.open(filename + "/" + r, "r", "utf-8", "ignore") as d:
-								print ("Review for", r)
+								# print ("Review for", r)
 								raw_text = d.read()
 								text = raw_text.replace('\n','')
-								corpus.append(text)
+								corpus[r] = text
 								if r[0] == 't':
-									y_test.append(1)
+									y[r] = 1
 								elif r[0] == 'd':
-									y_test.append(0)
+									y[r] =0
 								else:
 									print('ERROR with test outcome.')
-	return corpus, y_test
+	return corpus, y
 
 
+def extract_LIWC(polarity):
+	file_path = "./op_spam_v1.4/LIWC_"+str(polarity)+'.csv'
+	data = pd.read_csv(file_path)
+	return data
