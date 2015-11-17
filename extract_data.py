@@ -10,7 +10,7 @@ def extract(version):
 		types = ['truthful', 'deceptive']
 		for t in types:
 			if t in f:
-				for i in range(1,6): 
+				for i in range(1,6):
 					filename = name + "/" + f + "/fold" + str(i) 
 					for r in sorted(os.listdir(filename)):
 						if '.txt' in r:
@@ -18,11 +18,12 @@ def extract(version):
 								# print ("Review for", r)
 								raw_text = d.read()
 								text = raw_text.replace('\n','')
+								f_name = str(i)+'_'+str(r)
 								corpus[r] = text
 								if r[0] == 't':
-									y[r] = 1
+									y[r] = [1,i]
 								elif r[0] == 'd':
-									y[r] =0
+									y[r] = [0,i]
 								else:
 									print('ERROR with test outcome.')
 	return corpus, y

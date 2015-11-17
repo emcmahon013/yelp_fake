@@ -20,18 +20,19 @@ def bigram_plus(corpus,ngrams=(1,2)):
 	X = bigram_vectorizer.fit_transform(dictionary).toarray()
 	return X, reviews
 
-def tf_idf(X_y):
+def tf_idf(X):
 	transformer = TfidfTransformer()
-	t = transformer.fit_transform(X_y)
-	X_y = t.toarray()
-	return X_y
+	t = transformer.fit_transform(X)
+	X = t.toarray()
+	return X
 
 def add_LIWC(polarity,r_order,y):
 	data = extract_LIWC(polarity)
 	reviews = pd.DataFrame(r_order,columns=['Filename'])
 	LIWC = reviews.merge(data,'left')
-	output = pd.Series(y,name='y_rating')
-	output = pd.DataFrame(output)
+	output = pd.DataFrame(y)
+	output = output.transpose()
+	output.columns = ['y_rating','fold']
 	output['Filename'] = output.index
 	LIWC = LIWC.merge(output,'left')
 	return LIWC 
