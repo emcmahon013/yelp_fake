@@ -36,7 +36,7 @@ for subdir, dirs, files in os.walk('./op_spam_v1.4/negative_polarity/'):
 
 watson_data_positive = []
 import os
-for subdir, dirs, files in os.walk('./op_spam_v1.4/negative_polarity/'):
+for subdir, dirs, files in os.walk('./op_spam_v1.4/positive_polarity/'):
     for file in files:
         text = open(str(subdir) + "/" + str(file)).read()
         response = watson_request(text)
