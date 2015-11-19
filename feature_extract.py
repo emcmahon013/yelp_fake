@@ -37,7 +37,16 @@ def add_LIWC(polarity,r_order,y):
 	LIWC = LIWC.merge(output,'left')
 	return LIWC 
 
-
+def features(polarity,skew=False):
+	if skew == False:
+		corpus, y = extract(polarity)
+	else:
+		corpus, y = extract_skew(polarity)
+	X_ngram, r_order = bigram_plus(corpus)
+	LIWC = add_LIWC(polarity,r_order,y)
+	data = np.hstack((X_ngram,np.matrix(LIWC)[:,1:]))
+	y = np.squeeze(np.asarray(data[:,-2])).astype(int)
+	return data, y
 
 
 # if __name__ =="__main__":
