@@ -33,7 +33,7 @@ def create_watson_db(polarity):
             response = watson_request(text)
             row = create_row(response, file)
             watson_data.append(row)
-            watson_df = pd.DataFrame(watson_data)
+    watson_df = pd.DataFrame(watson_data)
     return watson_df
 
 if __name__ =="__main__":
