@@ -1,6 +1,7 @@
 import requests
 import json
 import pandas as pd
+import os
 
 def watson_request(text):
     base_url = "https://gateway.watsonplatform.net/tone-analyzer-experimental/api/v1/tone"
@@ -23,26 +24,22 @@ def create_row(response, text_id):
             row[characteristic_id + "_" + "raw_score"] = features['raw_score']
     return row
 
-watson_data_negative = []
-import os
-for subdir, dirs, files in os.walk('./op_spam_v1.4/negative_polarity/'):
-    for file in files:
-        text = open(str(subdir) + "/" + str(file)).read()
-        response = watson_request(text)
-        row = create_row(response, file)
-        watson_data_negative.append(row)
+def create_watson_db(polarity):
+    watson_data = []
+    filename = './op_spam_v1.4/'+str(polarity)+'_polarity/'
+    for subdir, dirs, files in os.walk(filename):
+        for file in files:
+            text = open(str(subdir) + "/" + str(file)).read()
+            response = watson_request(text)
+            row = create_row(response, file)
+            watson_data.append(row)
+            watson_df = pd.DataFrame(watson_data)
+    return watson_df
+
+if __name__ =="__main__":
+    watson_negative = create_watson_db('negative')
+    watson_negative.to_csv('negative_watson.csv',sep=',',index=False)
+    watson_positive = create_watson_db('positive')
+    watson_positive.to_csv('positive_watson.csv',sep=',',index=False)
 
 
-
-watson_data_positive = []
-import os
-for subdir, dirs, files in os.walk('./op_spam_v1.4/positive_polarity/'):
-    for file in files:
-        text = open(str(subdir) + "/" + str(file)).read()
-        response = watson_request(text)
-        row = create_row(response, file)
-        watson_data_positive.append(row)
-
-
-watson_df_negative = pd.DataFrame(watson_data_negative)
-watson_df_positive = pd.DataFrame(watson_data_positive)
