@@ -17,29 +17,40 @@
     <script src="./js/jquery-2.1.4.min.js"></script>
     <script src="./js/npm.js"></script>
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-  </head>
-  <body>
+    </head>
+    <body>
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="index.html">Fake Reviews</a>
-    </div>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">Fake Reviews</a>
+        </div>
 
     </nav>
 
 
     <div class="row">
-        <div class="col-lg-2" id="hotels-list">
+    <div class="col-md-12">
+        <div class="col-md-2" id="hotels-list">
             <h2 class="page-header">Hotels</h2>
             <div class="row">
                 <div class="list-group">
                   <a href="#" class="list-group-item active">
-                    <h4 class="list-group-item-heading">Hotel Amalfi</h4>
-      
-                    
+                  <div class="row">
+                    <div class="col-md-6">
                         
-                    <img src="http://pbs.twimg.com/profile_images/671464040036622336/8o0pRs_8_normal.jpg" height="48" width="48">
-                    <p class="list-group-item-text"> Chicago</p>
+                        <img src="http://pbs.twimg.com/profile_images/671464040036622336/8o0pRs_8_normal.jpg" height="80" width="80">
+                    </div>
+                     <div class="col-md-6" style="padding-left: 0px;">
+                        <ul class="list-unstyled">
+                            <li> <h4> Hotel Amalfi</h4> </li>
+                            
+                            <li> Chicago </li>
+                             <li><img src="./img/4_stars.svg.png" alt="img" height="20"></li>
+                        </ul>
+                        
+
+                    </div>
+                    </div>
+                    
 
                   </a>
                   <a href="#" class="list-group-item">
@@ -53,13 +64,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-md-8">
             <div class="row">
                 <h2 class="page-header">Metrics</h2>
             </div>
             
             <div class='row'>
-                <div class="col-lg-3">
+                <div class="col-md-3">
                     <div class="panel panel-default panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title">Panel title</h3>
@@ -69,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                 <div class="col-lg-3">
+                 <div class="col-md-3">
                     <div class="panel panel-default panel-warning">
                       <div class="panel-heading">
                         <h3 class="panel-title">Panel title</h3>
@@ -79,7 +90,7 @@
                       </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-md-3">
                     <div class="panel panel-default panel-danger">
                         <div class="panel-heading">
                           <h3 class="panel-title">Panel title</h3>
@@ -89,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-                 <div class="col-lg-3">
+                 <div class="col-md-3">
                     <div class="panel panel-default panel-info">
                       <div class="panel-heading">
                         <h3 class="panel-title">Panel title</h3>
@@ -105,92 +116,54 @@
             
             <div class="row">
                 <h2 class="page-header">Reviews</h2>
-                <div class="col-lg-12" id="reviews-container">
-                    <table class="table table-striped" width="100%">
-                      <colgroup><col style="width:10%">
-                      <col style="width:70%">
-                      <col style="width:20%">
-                      </colgroup>
-                      <tbody class="inf-scroll">
-                    <tr class="main-table-row">
-                      <td class="image-in-table">
-                        <a href="http://www.twitter.com/NvaIzq" target="_blank">
-                          <img src="http://pbs.twimg.com/profile_images/671464040036622336/8o0pRs_8_normal.jpg" height="48" width="48">
-                        </a>
-                      </td>
-                      <td>
-                        <ul class="unstyled">
-                          <li>
-                            <ul class="inline">
-                              <li><h5>Nueva Izquierda</h5></li>
-                              <li>
-                                <a href="http://www.twitter.com/NvaIzq" target="_blank">
-                                  <p class="muted">@NvaIzq</p>         
-                                </a>
-                              </li>
-                            </ul> 
-                          </li> 
-                          <li><p>"El fracaso de la prohibición del consumo de la mariguana" carta de <a class="username-link" href="https://twitter.com/ferbelaunzaran" rel="nofollow">@ferbelaunzaran</a> a <a class="username-link" href="https://twitter.com/EPN" rel="nofollow">@EPN</a> <a href="https://t.co/yGjh0o1b2L" rel="nofollow" target="_blank">https://t.co/yGjh0o1b2L</a> <a href="https://t.co/aBSnq7WpTj" rel="nofollow" target="_blank">https://t.co/aBSnq7WpTj</a></p></li>
-                          <li>
-                            <a href="http://www.twitter.com/NvaIzq/status/674005261175001088" target="_blank">
-                            <p class="muted">
-                               5:19 PM - 7 Dec 15
-                            </p>
-                          </a>
-                        </li>
-                      </ul></td>
-                      <td> 
-                        <table class="inner-table">
-                          <tbody>
-                            <tr>
-                              <td><i class="icon-retweet"></i></td>
-                              <td class="number_in_table"><a href="/understand/drilldowns/11095/segment/prd/retweets/status/674005261175001088" class="drilldown-link retweet-drilldown-link" data-remote="/understand/drilldowns/11095/segment/prd/retweets/fetch-status/674005261175001088" data-target="#drilldown_container">15</a></td>
-                            </tr>
-                            <tr>
-                              <td><i class="icon-share-alt"></i></td>
-                              <td class="number_in_table"><a href="/understand/drilldowns/11095/segment/prd/replies/status/674005261175001088" class="drilldown-link replies-drilldown-link" data-remote="/understand/drilldowns/11095/segment/prd/replies/fetch-status/674005261175001088" data-target="#drilldown_container">1</a></td>
-                            </tr>
-                            <tr>
-                              <td><strong>Reach:</strong></td>
-                              <td class="number_in_table">56,575</td>
-                            </tr>
-                            <tr>
-                              <td><strong>Amp:</strong></td>
-                              <td class="number_in_table">
-                                10.5
-                              </td>
-                            </tr>                     
-                          </tbody>
-                        </table>
-                      </td>   
-                    </tr>
-                    </tbody>
-                    </table>
+                <div class="col-md-12" id="reviews-container">
 
+                    <div class="media">
+                      <div class="media-left" >
+                        
+                      <img class="media-object" src="http://pbs.twimg.com/profile_images/671464040036622336/8o0pRs_8_normal.jpg" alt="img" style="padding-left: 36px; padding-right: 35px;">
+                      <h4>
+                      <dl>
+                        <dt > Mizz jazzi ladi</dt>
+                      </dl>
 
-<div class="media">
-  <div class="media-left">
-    <a href="#">
-      <img class="media-object" src="http://pbs.twimg.com/profile_images/671464040036622336/8o0pRs_8_normal.jpg" alt="img">
-    </a>
-  </div>
-  <div class="media-body">
-    <h4 class="media-heading">Media heading</h4>
-    ...
-  </div>
-    <div class="media-right">
-    stats here
-  </div>
-</div>
+                        
+                      </div>
+                      <div class="media-body">
+                        <ul class="list-inline">
+                             <li>
+                                <img src="./img/4_stars.svg.png" alt="img" height="20">
+                            </li>
+                            <li>
+                                2014-04-22
+                            </li>
+   
+                        </ul>
+                        
+
+                        <p>Lorem ipsum dolor sit amet, ea vim ubique appareat placerat, eum id autem nonumy, essent legendos nam ex. Suas invenire definitiones at eos. Ius fugit dolores suscipiantur ut, in euripidis voluptaria pri, quo iuvaret invidunt eu. Usu an aperiam iracundia sententiae, cu mentitum theophrastus per, cu error perpetua principes sea. Est vidit phaedrum ei, quaestio disputando vel te. Sed at platonem voluptaria. An est movet aliquando. Tamquam constituam pro ut, utroque civibus sea id, in quodsi saperet nominavi vim. Ei per facete viderer saperet, id dicam pericula quo, vix et option volutpat intellegat. Fierent accusamus complectitur pro an. Lobortis salutatus ius te. Et vim brute eirmod suscipit, nibh platonem patrioque te per. Justo eripuit imperdiet ad vix. 
+                        </p>
+                      </div>
+
+                      <div class="media-right">
+                        <dl>
+                          <dt>Type</dt>
+                          <dd>Negative Deceptive </dd>
+                          <dt>Probability</dt>
+                          <dd>0.6 </dd>
+                        </dl>
+                      </div>
+                        
+                    </div>
+
                 </div>
             </div>
         </div>
-        <div class="col-lg-2">
+        <div class="col-md-2">
             <h2 class="page-header">Rank</h2>
         </div>
-                <!-- /.col-lg-12 -->
+    <div class="col-md-2">
     </div>
-            <!-- /.row -->
             
   </body>
 </html>
