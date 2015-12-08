@@ -1,0 +1,59 @@
+{
+  "amalfi" : {
+    "name" : "Amalfi Hotel ",
+    "city" : "Chicago",
+    "stars" : 4.5,
+    "image_url" : "https://www.visitsitaly.com/tours/campania/rentals/hotel_santa_caterina/hotel_santa_caterina_pool.jpg",
+    "reviews" : [
+      {"name": "Luke Skywalker",
+       "user_name": "luke_23",
+       "stars" : 3,
+       "date" : "2011-01-20",
+       "review" : "Lorem ipsum dolor sit amet, ea vim ubique appareat placerat, eum id autem nonumy, essent legendos nam ex. Suas invenire definitiones at eos. Ius fugit dolores suscipiantur ut, in euripidis voluptaria pri, quo iuvaret invidunt eu. Usu an aperiam iracundia sententiae, cu mentitum theophrastus per, cu error perpetua principes sea. Est vidit phaedrum ei, quaestio disputando vel te. Sed at platonem voluptaria. An est movet aliquando. Tamquam constituam pro ut, utroque civibus sea id, in quodsi saperet nominavi vim. Ei per facete viderer saperet, id dicam pericula quo, vix et option volutpat intellegat. Fierent accusamus complectitur pro an. Lobortis salutatus ius te. Et vim brute eirmod suscipit, nibh platonem patrioque te per. Justo eripuit imperdiet ad vix. ",
+       "type" : "Deceptive Positive",
+       "probability" : 0.8
+        
+
+      },
+      {"name": "Leia Skywalker",
+       "user_name": "leia_20",
+       "stars" : 5,
+       "date" : "2011-01-20",
+       "review" : "Lorem ipsum dolor sit amet, ea vim ubique appareat placerat, eum id autem nonumy, essent legendos nam ex. Suas invenire definitiones at eos. Ius fugit dolores suscipiantur ut, in euripidis voluptaria pri, quo iuvaret invidunt eu. Usu an aperiam iracundia sententiae, cu mentitum theophrastus per, cu error perpetua principes sea. Est vidit phaedrum ei, quaestio disputando vel te. Sed at platonem voluptaria. An est movet aliquando. Tamquam constituam pro ut, utroque civibus sea id, in quodsi saperet nominavi vim. Ei per facete viderer saperet, id dicam pericula quo, vix et option volutpat intellegat. Fierent accusamus complectitur pro an. Lobortis salutatus ius te. Et vim brute eirmod suscipit, nibh platonem patrioque te per. Justo eripuit imperdiet ad vix. ",
+       "type" : "Deceptive Positive",
+       "probability" : 0.8
+        
+      }
+
+    ]
+  },
+  "ritz" : {
+    "name" : "Ritz Hotel ",
+    "city" : "Chicago",
+    "stars" : 5,
+    "image_url" : "https://www.visitsitaly.com/tours/campania/rentals/hotel_santa_caterina/hotel_santa_caterina_pool.jpg",
+    "reviews" : [
+      {"name": "Darth Vader",
+       "user_name": "darth_vader",
+       "stars" : 1,
+       "date" : "2011-01-20",
+       "review" : "Lorem ipsum dolor sit amet, ea vim ubique appareat placerat, eum id autem nonumy, essent legendos nam ex. Suas invenire definitiones at eos. Ius fugit dolores suscipiantur ut, in euripidis voluptaria pri, quo iuvaret invidunt eu. Usu an aperiam iracundia sententiae, cu mentitum theophrastus per, cu error perpetua principes sea. Est vidit phaedrum ei, quaestio disputando vel te. Sed at platonem voluptaria. An est movet aliquando. Tamquam constituam pro ut, utroque civibus sea id, in quodsi saperet nominavi vim. Ei per facete viderer saperet, id dicam pericula quo, vix et option volutpat intellegat. Fierent accusamus complectitur pro an. Lobortis salutatus ius te. Et vim brute eirmod suscipit, nibh platonem patrioque te per. Justo eripuit imperdiet ad vix. ",
+       "type" : "Deceptive Positive",
+       "probability" : 0.8
+        
+
+      },
+      {"name": "Darth Mole",
+       "user_name": "mole20",
+       "stars" : 4,
+       "date" : "2011-01-20",
+       "review" : "Lorem ipsum dolor sit amet, ea vim ubique appareat placerat, eum id autem nonumy, essent legendos nam ex. Suas invenire definitiones at eos. Ius fugit dolores suscipiantur ut, in euripidis voluptaria pri, quo iuvaret invidunt eu. Usu an aperiam iracundia sententiae, cu mentitum theophrastus per, cu error perpetua principes sea. Est vidit phaedrum ei, quaestio disputando vel te. Sed at platonem voluptaria. An est movet aliquando. Tamquam constituam pro ut, utroque civibus sea id, in quodsi saperet nominavi vim. Ei per facete viderer saperet, id dicam pericula quo, vix et option volutpat intellegat. Fierent accusamus complectitur pro an. Lobortis salutatus ius te. Et vim brute eirmod suscipit, nibh platonem patrioque te per. Justo eripuit imperdiet ad vix. ",
+       "type" : "Thruthful",
+       "probability" : 0.7
+        
+      }
+
+    ]
+  }
+
+}
