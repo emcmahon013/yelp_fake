@@ -55,4 +55,8 @@ $colHover       : #ffe6d1; /*/
       color: #ffbbbc;
       background-color: #c0392b; } }
 
+.metric {
+  font-size: 50px;
+}
+
 /*# sourceMappingURL=bootstrap-overrides.css.map */
