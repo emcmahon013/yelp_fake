@@ -66,57 +66,62 @@ $(function() {
 
   fill_reviews = function(data,hotel_id){
     reviews = data[hotel_id]["reviews"]
-    d3.select("#reviews-container").text("")
-    var review_card = d3.select("#reviews-container").selectAll("div")
-      .data(reviews).enter()
-      .append("div")
-      .attr("id", function(d){return("review_card_" + d["id"])})
-      .attr("class", "media")
-     
-    var media_left = review_card.append("div")
-      .attr("class", "media-left")
+    $("#reviews-container").fadeOut(function() {
+      $(this).text("")
+      var review_card = d3.select("#reviews-container").selectAll("div")
+        .data(reviews).enter()
+        .append("div")
+        .attr("id", function(d){return("review_card_" + d["id"])})
+        .attr("class", "media")
+       
+      var media_left = review_card.append("div")
+        .attr("class", "media-left")
 
-    media_left.append("img")
-      .attr("class", "media-object")
-      .attr("src", "./img/contact-outline.png")
-      .attr("width", "50")
-      .attr("height", "50")
+      media_left.append("img")
+        .attr("class", "media-object")
+        .attr("src", "./img/contact-outline.png")
+        .attr("width", "50")
+        .attr("height", "50")
 
 
-    var media_body = review_card.append("div")
-      .attr("class", "media-body")
+      var media_body = review_card.append("div")
+        .attr("class", "media-body")
 
-    var media_body_list = media_body.append("ul")
-      .attr("class", "list-inline")
+      var media_body_list = media_body.append("ul")
+        .attr("class", "list-inline")
 
-    media_body_list.append("li").append("h4").text(function(d){return(d["name"])})
+      media_body_list.append("li").append("h4").text(function(d){return(d["name"])})
 
-    media_body_list.append("li")
-      .append("img")
-      .attr("src", function(d){
-        return("./img/"+ d.stars +"_stars.svg.png")
-      })
-      .attr("height", 20)
-    
-    media_body_list.append("li")
-      .text(function(d){return(d["date"])})
+      media_body_list.append("li")
+        .append("img")
+        .attr("src", function(d){
+          return("./img/"+ d.stars +"_stars.svg.png")
+        })
+        .attr("height", 20)
+      
+      media_body_list.append("li")
+        .text(function(d){return(d["date"])})
 
-    media_body.append("p")
-      .text(function(d){return(d["review"])})
+      media_body.append("p")
+        .text(function(d){return(d["review"])})
 
-    var media_bosy_right = review_card.append("div")
-      .attr("class", "media-right")
-      .append("dl")
-    media_bosy_right.append("dt").text("Type")
-    media_bosy_right.append("dd").text(function(d){return(d["type"])})
+      var media_bosy_right = review_card.append("div")
+        .attr("class", "media-right")
+        .append("dl")
+      media_bosy_right.append("dt").text("Type")
+      media_bosy_right.append("dd").text(function(d){return(d["type"])})
 
-    media_bosy_right.append("dt").text("Probability")
-    media_bosy_right.append("dd").text(function(d){return(d["probability"])})   
+      media_bosy_right.append("dt").text("Probability")
+      media_bosy_right.append("dd").text(function(d){return(d["probability"])})
+  }).fadeIn();
   }
 
   fill_rank = function(data, hotel_id){
     var rank = data[hotel_id]["rank"]
-    $("#ranking-content").text("Top "+ rank)
+
+    $("#ranking-content").fadeOut(function() {
+      $(this).text("Top "+ rank)
+    }).fadeIn();
   }
 
   fill_hotels(hotel_default_id);
