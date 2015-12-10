@@ -7,26 +7,22 @@
     "rank" : "11%",
     "reviews" : [
       {"name": "Luke Skywalker",
-       "user_name": "luke_23",
        "stars" : 3,
        "date" : "2011-01-20",
        "review" : "Lorem ipsum dolor sit amet, ea vim ubique appareat placerat, eum id autem nonumy, essent legendos nam ex. Suas invenire definitiones at eos. Ius fugit dolores suscipiantur ut, in euripidis voluptaria pri, quo iuvaret invidunt eu. Usu an aperiam iracundia sententiae, cu mentitum theophrastus per, cu error perpetua principes sea. Est vidit phaedrum ei, quaestio disputando vel te. Sed at platonem voluptaria. An est movet aliquando. Tamquam constituam pro ut, utroque civibus sea id, in quodsi saperet nominavi vim. Ei per facete viderer saperet, id dicam pericula quo, vix et option volutpat intellegat. Fierent accusamus complectitur pro an. Lobortis salutatus ius te. Et vim brute eirmod suscipit, nibh platonem patrioque te per. Justo eripuit imperdiet ad vix. ",
        "type" : "Positive Deceptive",
        "probability" : 0.8
-        
-
       },
       {"name": "Leia Skywalker",
-       "user_name": "leia_20",
        "stars" : 5,
        "date" : "2011-01-20",
        "review" : "Lorem ipsum dolor sit amet, ea vim ubique appareat placerat, eum id autem nonumy, essent legendos nam ex. Suas invenire definitiones at eos. Ius fugit dolores suscipiantur ut, in euripidis voluptaria pri, quo iuvaret invidunt eu. Usu an aperiam iracundia sententiae, cu mentitum theophrastus per, cu error perpetua principes sea. Est vidit phaedrum ei, quaestio disputando vel te. Sed at platonem voluptaria. An est movet aliquando. Tamquam constituam pro ut, utroque civibus sea id, in quodsi saperet nominavi vim. Ei per facete viderer saperet, id dicam pericula quo, vix et option volutpat intellegat. Fierent accusamus complectitur pro an. Lobortis salutatus ius te. Et vim brute eirmod suscipit, nibh platonem patrioque te per. Justo eripuit imperdiet ad vix. ",
        "type" : "Truthful",
-       "probability" : 0.8
-        
+       "probability" : 0.8  
       }
-
-    ]
+    ],
+      "nd_timeline":[{"date": "",  "value":""}],
+      "nd_timeline":[{"date": "",  "value":""} ]
   },
   "ritz" : {
     "name" : "Ritz Hotel ",
