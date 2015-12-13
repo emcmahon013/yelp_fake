@@ -59,4 +59,47 @@ $colHover       : #ffe6d1; /*/
   font-size: 50px;
 }
 
+.page-header {
+    border-bottom: 1px solid #e74c3c;
+    margin: 40px 0 20px;
+    padding-bottom: 9px;
+}
+
+svg {
+    display: block;
+}
+svg {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+}
+.timeline-container{
+  height: 250px;
+}
+.highlight{
+  background-color: #F4E9CE;
+}
+body {
+    background-color: #f9f9f9;
+}
+
+.review-card{
+  
+  border-style: solid; 
+  border-left-width: 5px;
+  border-top-width: 0px; 
+  border-bottom-width: 0px; 
+  border-right-width: 0px;
+}
+.truthful-card{
+  border-left-color: #33a02c;
+}
+
+.positive-deceptive-card{
+  border-left-color: #1f78b4;
+}
+.negative-deceptive-card{
+  border-left-color: #e31a1c;
+}
 /*# sourceMappingURL=bootstrap-overrides.css.map */

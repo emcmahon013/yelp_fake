@@ -11,10 +11,12 @@
     <!-- <link href="./css/bootstrap-theme.css" rel="stylesheet" type="text/css"> -->
     <link href="./css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="./css/bootstrap-overrides.css" rel="stylesheet" type="text/css">
+    <link href="./css/nv.d3.min.css" rel="stylesheet" type="text/css">
 
     <script src="./js/jquery-2.1.4.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/d3.min.js"></script>
+    <script src="./js/nv.d3.min.js"></script>
     
     
     <script src="./js/fill_data.js"></script>
@@ -26,7 +28,7 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="index.html">Fake Reviews</a>
         </div>
-
+        <a href="#" class="pull-right"><img src="img/watson-logo.png" height="60"></a>
     </nav>
 
 
@@ -46,12 +48,12 @@
             
             <div class='row'>
                 <div class="col-md-3">
-                    <div class="panel panel-default panel-primary">
+                    <div class="panel panel-default panel-primary" align="center">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Negative Deceptive</h3>
+                            <h3 class="panel-title">Truthfull</h3>
                         </div>
-                        <div class="panel-body" align="center">
-                            <h1 class="metric">
+                        <div class="panel-body" >
+                            <h1 class="metric" id="truth-text">
                             35%
                             </h1>
                         </div>
@@ -63,19 +65,19 @@
                         <h3 class="panel-title">Positive Deceptive</h3>
                       </div>
                       <div class="panel-body">
-                        <h1 class="metric">
+                        <h1 class="metric" id="pd-text">
                             35%
-                            </h1>
+                        </h1>
                       </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="panel panel-default panel-danger" align="center">
                         <div class="panel-heading" align="center">
-                          <h3 class="panel-title">Truthful</h3>
+                          <h3 class="panel-title" >Negative Deceptive</h3>
                         </div>
                         <div class="panel-body">
-                            <h1 class="metric">
+                            <h1 class="metric" id="nd-text"> 
                             35%
                             </h1>
                         </div>
@@ -84,10 +86,10 @@
                  <div class="col-md-3">
                     <div class="panel panel-default panel-info" align="center">
                       <div class="panel-heading">
-                        <h3 class="panel-title">Panel title</h3>
+                        <h3 class="panel-title">Adjusted Stars</h3>
                       </div>
                       <div class="panel-body">
-                        <h1 class="metric">
+                        <h1 class="metric" id="adj-stars-text">
                             35%
                         </h1>
                       </div>
@@ -96,21 +98,23 @@
 
 
             </div>
-            
+            <div class='row'>
+                <h2 class="page-header">Timeline</h2>
+                <div class="col-md-6 timeline-container" id="timeline-type-container"></div>
+                <div class="col-md-6 timeline-container" id="timeline-stars-container"></div>
+            </div>
             <div class="row">
                 <h2 class="page-header">Reviews</h2>
                 <div class="col-md-12" id="reviews-container">
-
-
                 </div>
             </div>
         </div>
         <div class="col-md-2">
             <h2 class="page-header">Rank</h2>
             <h1 id="ranking-content"> </h1>
+            <table class="table" id="ranking-table"></table>
         </div>
-    <div class="col-md-2">
     </div>
-            
+    </div>
   </body>
 </html>
