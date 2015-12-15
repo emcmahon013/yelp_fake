@@ -3,10 +3,10 @@ import numpy as np
 import pandas as pd
 import random
 
-def extract(version):
+def extract(polarity):
 	corpus = {}
 	y = {}
-	name = './op_spam_v1.4/'+str(version)+'_polarity'
+	name = './op_spam_v1.4/'+str(polarity)+'_polarity'
 	for f in sorted(os.listdir(name)):
 		types = ['truthful', 'deceptive']
 		for t in types:
@@ -22,18 +22,18 @@ def extract(version):
 								f_name = str(i)+'_'+str(r)
 								corpus[r] = text
 								if r[0] == 't':
-									y[r] = [1,i]
-								elif r[0] == 'd':
 									y[r] = [0,i]
+								elif r[0] == 'd':
+									y[r] = [1,i]
 								else:
 									print('ERROR with test outcome.')
 	return corpus, y
 
-def extract_skew(version,skew_perc=.15):
+def extract_skew(polarity,skew_perc=.3):
 	skew_n = int(skew_perc*20)
 	corpus = {}
 	y = {}
-	name = './op_spam_v1.4/'+str(version)+'_polarity'
+	name = './op_spam_v1.4/'+str(polarity)+'_polarity'
 	for f in sorted(os.listdir(name)):
 		types = ['truthful', 'deceptive']
 		for t in types:
@@ -56,9 +56,9 @@ def extract_skew(version,skew_perc=.15):
 								f_name = str(i)+'_'+str(r)
 								corpus[r] = text
 								if r[0] == 't':
-									y[r] = [1,i]
-								elif r[0] == 'd':
 									y[r] = [0,i]
+								elif r[0] == 'd':
+									y[r] = [1,i]
 								else:
 									print('ERROR with test outcome.')
 	return corpus, y
