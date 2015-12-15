@@ -1,6 +1,6 @@
 $(function() {
-  var hotel_default_id = "amalfi"
-  var data = (function () {
+  
+  var review_data = (function () {
       var json = null;
       $.ajax({
           'async': false,
@@ -16,14 +16,22 @@ $(function() {
 
   var hotels = []
 
-  for(var key in data){
+  for(var key in review_data){
     hotels.push({"id":key, 
-      "stars":data[key]["stars"],
-      "image_url": data[key]["image_url"],
-      "city": data[key]["city"],
-      "name": data[key]["name"]
+      "stars":review_data[key]["stars"],
+      "image_url": review_data[key]["image_url"],
+      "city": review_data[key]["city"],
+      "name": review_data[key]["name"],
+      "rank": review_data[key]["rank"]
     });
   }
+
+  hotels.sort(function(x, y){
+    return d3.descending(x.rank, y.rank);
+  })
+
+  var hotel_default_id = hotels[0].id
+  console.log(hotels)
   fill_hotels = function(hotel_active){
     var hotel_cards = d3.select("#hotels-list").selectAll("a")
       .data(hotels).enter()
@@ -65,14 +73,16 @@ $(function() {
   }
 
   fill_reviews = function(data,hotel_id){
+
     reviews = data[hotel_id]["reviews"]
+    
     $("#reviews-container").fadeOut(function() {
       $(this).text("")
       var review_card = d3.select("#reviews-container").selectAll("div")
         .data(reviews).enter()
         .append("div")
         .attr("id", function(d){return("review_card_" + d["id"])})
-        .attr("class", "media")
+        .attr("class", function(d){return "media review-card " + d["type"].replace(/\s+/g, '-').toLowerCase()+"-card"})
        
       var media_left = review_card.append("div")
         .attr("class", "media-left")
@@ -108,12 +118,42 @@ $(function() {
       var media_bosy_right = review_card.append("div")
         .attr("class", "media-right")
         .append("dl")
+        .attr("class", "dl-horizontal")
       media_bosy_right.append("dt").text("Type")
       media_bosy_right.append("dd").text(function(d){return(d["type"])})
 
       media_bosy_right.append("dt").text("Probability")
       media_bosy_right.append("dd").text(function(d){return(d["probability"])})
   }).fadeIn();
+  }
+
+  fill_rank_table = function(hotel_data, hotel_id){
+    var table_container = d3.select("#ranking-table")
+
+    var table_head = table_container.append("thead").append("tr")
+    
+    table_head.append("th").text("#")
+    table_head.append("th").text("Hotel")
+
+    var table_body = table_container.append("tbody").selectAll("tr")
+        .data(hotel_data).enter()
+        .append("tr")
+        .attr("class", function(d){
+          if(d.id == hotel_id)
+            return "highlight rank"
+          else
+            return "rank"
+        })
+        .attr("id",function(d){return("rank_"+d.id)})
+
+    table_body.append("td").text(function(d,i){return(i+1)})  
+    table_body.append("td").text(function(d){return(d["name"])})
+  }
+
+  update_rank_table = function(hotel_data, hotel_id){
+    $(".rank").removeClass("highlight");
+    console.log(hotel_id)
+    $('#rank_'+hotel_id).addClass('highlight');
   }
 
   fill_rank = function(data, hotel_id){
@@ -124,16 +164,113 @@ $(function() {
     }).fadeIn();
   }
 
+  ///////////////////
+
+  var chart;
+    var data;
+    var randomizeFillOpacity = function() {
+        var rand = Math.random(0,1);
+        for (var i = 0; i < 100; i++) { // modify sine amplitude
+            data[4].values[i].y = Math.sin(i/(5 + rand)) * .4 * rand - .25;
+        }
+        data[4].fillOpacity = rand;
+        chart.update();
+    };
+    nv.addGraph(function() {
+        chart = nv.models.lineChart()
+            .options({
+                transitionDuration: 300,
+                useInteractiveGuideline: true
+            })
+        ;
+        // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
+        chart.xAxis
+            .axisLabel("Time (s)")
+            .tickFormat(d3.format(',.1f'))
+            .staggerLabels(true)
+        ;
+        chart.yAxis
+            .axisLabel('Voltage (v)')
+            .tickFormat(function(d) {
+                if (d == null) {
+                    return 'N/A';
+                }
+                return d3.format(',.2f')(d);
+            })
+        ;
+        chart.showLegend(false);
+        data = sinAndCos();
+        d3.select('#timeline-type-container').append('svg')
+            .datum(data)
+            .call(chart);
+
+        d3.select('#timeline-stars-container').append('svg')
+            .datum(data)
+            .call(chart);
+        nv.utils.windowResize(chart.update);
+        return chart;
+    });
+    function sinAndCos() {
+        var sin = [],
+            sin2 = [],
+            cos = [],
+            rand = [],
+            rand2 = []
+            ;
+        for (var i = 0; i < 100; i++) {
+            sin.push({x: i, y: i % 10 == 5 ? null : Math.sin(i/10) }); //the nulls are to show how defined works
+            sin2.push({x: i, y: Math.sin(i/5) * 0.4 - 0.25});
+            cos.push({x: i, y: .5 * Math.cos(i/10)});
+            rand.push({x:i, y: Math.random() / 10});
+            rand2.push({x: i, y: Math.cos(i/10) + Math.random() / 10 })
+        }
+        return [
+            {
+                area: true,
+                values: sin,
+                key: "Sine Wave",
+                color: "#ff7f0e",
+                strokeWidth: 4,
+                classed: 'dashed'
+            },
+            {
+                values: cos,
+                key: "Cosine Wave",
+                color: "#2ca02c"
+            },
+            {
+                values: rand,
+                key: "Random Points",
+                color: "#2222ff"
+            },
+            {
+                values: rand2,
+                key: "Random Cosine",
+                color: "#667711",
+                strokeWidth: 3.5
+            },
+            {
+                area: true,
+                values: sin2,
+                key: "Fill opacity",
+                color: "#EF9CFB",
+                fillOpacity: .1
+            }
+        ];
+    }
+  ///////////////////
   fill_hotels(hotel_default_id);
-  fill_reviews(data, hotel_default_id)
-  fill_rank(data, hotel_default_id)
+  fill_reviews(review_data, hotel_default_id)
+  fill_rank(review_data, hotel_default_id)
+  fill_rank_table(hotels, hotel_default_id)
 
   $(".hotel_card").click(function(e){
     $(".hotel_card").removeClass("active")
     $(this).addClass("active")
     id = $(this).data("id")
-    fill_reviews(data, id)
-    fill_rank(data, id)
+    fill_reviews(review_data, id)
+    fill_rank(review_data, id)
+    update_rank_table(hotels, id)
     e.preventDefault()
   });
 
