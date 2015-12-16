@@ -157,7 +157,7 @@ class predict_prior:
 				hotel_pred[business_id]={"all":{"positive":[],"negative":[],"adj_stars":[],"stars":[],"pos_count":0,"neg_count":0,"total_count":0}}
 				#hotel_pred[business_id]={"positive":{"all":[]},"negative":{"all":[]},"adj_stars":{"all":[]},"stars":{"all":[]},"count":{"all":0}}
 
-			if (star == 4 or star == 5) and text_len > 100:
+			if (star == 4 or star == 5) and text_len > 50:
 				r_prob, r_true = self.get_prediction(text,pos_bigram,pos_model,hotel,col_names,WC)
 				hotel_pred[business_id]["all"]["positive"].append(float(r_true))
 				hotel_pred[business_id]["all"]["pos_count"] += 1 
@@ -175,7 +175,7 @@ class predict_prior:
 					hotel_pred[business_id][date.year]["adj_stars"].append(star)
 					hotel_pred[business_id]["all"]["adj_stars"].append(star)
 
-			elif (star == 1 or star == 2) and text_len > 100:
+			elif (star == 1 or star == 2) and text_len > 50:
 				r_prob, r_true = self.get_prediction(text,neg_bigram,neg_model,hotel,col_names,WC)
 				hotel_pred[business_id]["all"]["negative"].append(float(r_true))
 				hotel_pred[business_id]["all"]["neg_count"] += 1 
@@ -259,12 +259,12 @@ class predict_prior:
 			r_text = hotel['text']
 
 			r_type = "Truthful"
-			if (r_star == '5' or r_star == '4') and len(r_text.split()) > 100:
+			if (r_star == '5' or r_star == '4') and len(r_text.split()) > 50:
 				prob, r_true = self.get_prediction(r_text,pos_bigram,pos_model,hotel,col_names,WC)
 				r_prob = str(round(float(prob[0][1])))
 				if r_true == 1:
 					r_type = "Positive Deceptive"
-			elif (r_star == '1' or r_star == '2') and len(r_text.split()) > 100:
+			elif (r_star == '1' or r_star == '2') and len(r_text.split()) > 50:
 				prob, r_true = self.get_prediction(r_text,neg_bigram,neg_model,hotel,col_names,WC)
 				r_prob = str(round(float(prob[0][1])))
 				if r_true == 1:
@@ -272,7 +272,7 @@ class predict_prior:
 			else:
 				r_prob = "NA"
 
-			review_dict = {"name":r_name,"stars":r_star,"date":r_date,"review":r_text,"type":r_type,"probability":r_prob}
+			review_dict = {"name":r_name,"star":r_star,"date":r_date,"review":r_text,"type":r_type,"probability":r_prob}
 			try:
 				reviews[b_id]["reviews"].append(review_dict)
 			except KeyError:
