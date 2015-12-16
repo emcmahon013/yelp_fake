@@ -15,7 +15,7 @@ $(function() {
   })(); 
 
   var hotels = []
-
+  console.log(review_data)
   for(var key in review_data){
     hotels.push({"id":key, 
       "star":review_data[key]["star"],
@@ -120,12 +120,12 @@ $(function() {
       var media_bosy_right = review_card.append("div")
         .attr("class", "media-right")
         .append("dl")
-        .attr("class", "dl-horizontal")
-      media_bosy_right.append("dt").text("Type")
-      media_bosy_right.append("dd").text(function(d){return(d["type"])})
+        // .attr("class", "dl-horizontal")
+      media_bosy_right.append("dt").append("h5").text("Type")
+      media_bosy_right.append("dd").append("p").attr("class","lead").text(function(d){return(d["type"])})
 
-      media_bosy_right.append("dt").text("Probability")
-      media_bosy_right.append("dd").text(function(d){return(d["probability"])})
+      media_bosy_right.append("dt").append("h5").text("Probability")
+      media_bosy_right.append("dd").append("p").attr("class","lead").text(function(d){return(d["probability"])})
   }).fadeIn();
   }
 
