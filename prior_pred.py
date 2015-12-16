@@ -216,7 +216,6 @@ class predict_prior:
 		business.set_index('business_id',inplace=True)
 		hotel_ts = pd.read_csv('hotels_data.csv',sep=',')
 
-
 		n = len(self.hotel_predict)
 		col_names = list(self.hotel_predict.keys())
 		WC = col_names.index('WC')
@@ -226,20 +225,22 @@ class predict_prior:
 		neg_model = self.load_model('negative')
 
 		m = len(hotel_ts)
-		ts = {}
+
 		dates = list(hotel_ts.keys())[3:]
 		for j in range(m):
 			t = hotel_ts.iloc[j]
 			b_id = t['business_id']
-			ts[b_id] = {"positive_ts":{"date":dates,"value":[]},"negative_ts":{"date":dates,"value":[]},"adj_star":{"date":[],"value":[]}}
+			try:
+				reviews[b_id]
+			except KeyError:
+				reviews[b_id] = {"positive_ts":{"date":dates,"value":[]},"negative_ts":{"date":dates,"value":[]},"star_ts":{"date":[],"value":[]}}
 			if t['value'] == 'positive':
-				ts[b_id]['positive_ts'] = list(t[3:])
-			if t['value'] == 'negative':
-				ts[b_id]['negative_ts'] = list(t[3:])
-			if t['value'] == 'adj_star':
-				ts[b_id]['adj_star']= list(t[3:])
+				reviews[b_id]['positive_ts']["value"] = list(t[3:])
+			elif t['value'] == 'negative':
+				reviews[b_id]['negative_ts']["value"] = list(t[3:])
+			elif t['value'] == 'adj_star':
+				reviews[b_id]['star_ts']["value"] = list(t[3:])
 
-			reviews[b_id]={}
 			reviews[b_id]["name"] = business['b_name'][b_id]
 			reviews[b_id]["city"] = business['b_city'][b_id]
 			reviews[b_id]["star"] = str(round(business['adj_stars'][b_id],2))
@@ -249,6 +250,7 @@ class predict_prior:
 			reviews[b_id]["rank"] = str(round(business['ranking'][b_id]*100))
 			reviews[b_id]["positive"] = str(round(business['positive'][b_id]*100))+'%'
 			reviews[b_id]["negative"] = str(round(business['negative'][b_id]*100))+'%'
+			#print(reviews[b_id])
 
 		for i in range(n):
 			hotel = self.hotel_predict.iloc[i]
