@@ -282,7 +282,7 @@ class predict_prior:
 
 if __name__ =="__main__":
 	PPrior = predict_prior('hotel_yelp_reviews.csv','multi')
-	PPrior.compute_prior(prior=False)
+	#PPrior.compute_prior(prior=False)
 	reviews = PPrior.by_hotel()
 	print(reviews)
 	with open('./application/data/reviews.json','w') as outfile:
