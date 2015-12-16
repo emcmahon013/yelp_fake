@@ -183,7 +183,6 @@ $(function() {
   }
 
   plot_deceptive_timeline = function(hotel_data, hotel_id){
-    d3.select("#timeline-type-container svg").remove();
     var raw_positive_ts = hotel_data[hotel_id]["positive_ts"]
     var raw_negative_ts = hotel_data[hotel_id]["negative_ts"]
     
@@ -208,8 +207,6 @@ $(function() {
   }
 
   plot_stars_timeline = function(hotel_data, hotel_id){
-    d3.select("#timeline-stars-container svg").remove();
-
     var raw_stars_ts = hotel_data[hotel_id]["star_ts"]
     
     var stars_ts = []
@@ -228,10 +225,7 @@ $(function() {
 
   timeline = plot_deceptive_timeline(review_data, hotel_default_id)
   st_timeline = plot_stars_timeline(review_data, hotel_default_id)
-  var deceptive_chart;
-    // console.log($("#timeline-type-container"))
-    // $("#timeline-type-container").text("")
-    // console.log($("#timeline-type-container"))
+  var deceptive_chart_d;
 
     nv.addGraph(function() {
         deceptive_chart = nv.models.lineChart()
@@ -240,27 +234,19 @@ $(function() {
                 useInteractiveGuideline: true
             })
         ;
-        // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
         deceptive_chart.xAxis.tickValues([2007,2008,2009,2010,2011,2012,2013,2014]);
           
         deceptive_chart.yAxis.tickFormat(d3.format(',.2f'));
 
         deceptive_chart.showLegend(false);
-        // data = sinAndCos();
-        d3.select('#timeline-type-container').append('svg')
+       deceptive_chart_d=  d3.select('#timeline-type-container').append('svg')
             .datum(timeline)
             .call(deceptive_chart);
 
-        // d3.select('#timeline-stars-container').append('svg')
-            // .datum(data)
-            // .call(chart);
         nv.utils.windowResize(deceptive_chart.update);
         return deceptive_chart;
     });
-    var stars_chart;
-    // console.log($("#timeline-type-container"))
-    // $("#timeline-type-container").text("")
-    // console.log($("#timeline-type-container"))
+    var stars_chart_d;
 
     nv.addGraph(function() {
         stars_chart = nv.models.lineChart()
@@ -269,35 +255,26 @@ $(function() {
                 useInteractiveGuideline: true
             })
         ;
-        // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
         stars_chart.xAxis.tickValues([2007,2008,2009,2010,2011,2012,2013,2014]);
 
         stars_chart.yAxis.tickFormat(d3.format(',.2f'));
 
         stars_chart.showLegend(false);
-        // data = sinAndCos();
-        d3.select('#timeline-stars-container').append('svg')
+
+        stars_chart_d = d3.select('#timeline-stars-container').append('svg')
             .datum(st_timeline)
             .call(stars_chart);
 
-        // d3.select('#timeline-stars-container').append('svg')
-            // .datum(data)
-            // .call(chart);
         nv.utils.windowResize(stars_chart.update);
         return stars_chart;
     });
     
-  ///////////////////
 
-
-  
-  ///////////////////
   fill_hotels(hotel_default_id);
   fill_reviews(review_data, hotel_default_id)
   fill_rank(review_data, hotel_default_id)
   fill_hotel_metrics(review_data, hotel_default_id)
   fill_rank_table(hotels, hotel_default_id)
-  // plot_deceptive_timeline(review_data, hotel_default_id)
 
   $(".hotel_card").click(function(e){
     $(".hotel_card").removeClass("active")
@@ -309,64 +286,10 @@ $(function() {
     timeline = plot_deceptive_timeline(review_data, id)
     st_timeline = plot_stars_timeline(review_data, id)
 
-    var deceptive_chart;
-      // console.log($("#timeline-type-container"))
-      // $("#timeline-type-container").text("")
-      // console.log($("#timeline-type-container"))
+    deceptive_chart_d.datum(timeline).transition().duration(500).call(deceptive_chart);
 
-      nv.addGraph(function() {
-          deceptive_chart = nv.models.lineChart()
-              .options({
-                  transitionDuration: 300,
-                  useInteractiveGuideline: true
-              })
-          ;
-          // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
-          deceptive_chart.xAxis.tickValues([2007,2008,2009,2010,2011,2012,2013,2014]);
-          deceptive_chart.yAxis.tickFormat(d3.format(',.2f'));
-          deceptive_chart.showLegend(false);
-          // data = sinAndCos();
-          d3.select('#timeline-type-container').append('svg')
-              .datum(timeline)
-              .call(deceptive_chart);
-
-          // d3.select('#timeline-stars-container').append('svg')
-              // .datum(data)
-              // .call(chart);
-          nv.utils.windowResize(deceptive_chart.update);
-          return deceptive_chart;
-      });
-
-    var stars_chart;
-    // console.log($("#timeline-type-container"))
-    // $("#timeline-type-container").text("")
-    // console.log($("#timeline-type-container"))
-
-    nv.addGraph(function() {
-        stars_chart = nv.models.lineChart()
-            .options({
-                transitionDuration: 300,
-                useInteractiveGuideline: true
-            })
-        ;
-        // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
-        stars_chart.xAxis.tickValues([2007,2008,2009,2010,2011,2012,2013,2014]);
-        stars_chart.yAxis.tickFormat(d3.format(',.2f'));
-        stars_chart.showLegend(false);
-        // data = sinAndCos();
-        d3.select('#timeline-stars-container').append('svg')
-            .datum(st_timeline)
-            .call(stars_chart);
-
-        // d3.select('#timeline-stars-container').append('svg')
-            // .datum(data)
-            // .call(chart);
-        nv.utils.windowResize(stars_chart.update);
-        return stars_chart;
-    });
-    
+    stars_chart_d.datum(st_timeline).transition().duration(500).call(stars_chart);    
       
-
     update_rank_table(hotels, id)
     e.preventDefault()
   });
