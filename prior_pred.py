@@ -243,10 +243,12 @@ class predict_prior:
 			reviews[b_id]["name"] = business['b_name'][b_id]
 			reviews[b_id]["city"] = business['b_city'][b_id]
 			reviews[b_id]["star"] = str(round(business['adj_stars'][b_id],2))
+			rounded_stars = round(business['adj_stars'][b_id]*2)/2
+			reviews[b_id]["rounded_star"] = str(rounded_stars)
 			reviews[b_id]["image_url"] = business['image_url'][b_id]
-			reviews[b_id]["rank"] = str(round(business['ranking'][b_id],2))
-			reviews[b_id]["positive"] = str(business['positive'][b_id]*100)+'%'
-			reviews[b_id]["negative"] = str(business['negative'][b_id]*100)+'%'
+			reviews[b_id]["rank"] = str(round(business['ranking'][b_id]*100))
+			reviews[b_id]["positive"] = str(round(business['positive'][b_id]*100))+'%'
+			reviews[b_id]["negative"] = str(round(business['negative'][b_id]*100))+'%'
 
 		for i in range(n):
 			hotel = self.hotel_predict.iloc[i]
@@ -256,23 +258,25 @@ class predict_prior:
 			r_date = str(hotel['date'].year)+'-'+str(hotel['date'].month)+'-'+str(hotel['date'].day)
 			r_text = hotel['text']
 
-			reviews[b_id]["reviews"] = []
 			r_type = "Truthful"
-			if (r_star == 5 or r_star == 4) and len(r_text.split()) > 100:
+			if (r_star == '5' or r_star == '4') and len(r_text.split()) > 100:
 				prob, r_true = self.get_prediction(r_text,pos_bigram,pos_model,hotel,col_names,WC)
-				r_prob = str(round(prob,2))
+				r_prob = str(round(float(prob[0][1])))
 				if r_true == 1:
 					r_type = "Positive Deceptive"
-			elif (r_star == 1 or r_star == 2) and len(r_text.split()) > 100:
+			elif (r_star == '1' or r_star == '2') and len(r_text.split()) > 100:
 				prob, r_true = self.get_prediction(r_text,neg_bigram,neg_model,hotel,col_names,WC)
-				r_prob = str(round(prob,2))
+				r_prob = str(round(float(prob[0][1])))
 				if r_true == 1:
 					r_type = "Negative Deceptive"
 			else:
 				r_prob = "NA"
 
 			review_dict = {"name":r_name,"stars":r_star,"date":r_date,"review":r_text,"type":r_type,"probability":r_prob}
-			reviews[b_id]["reviews"].append(review_dict)
+			try:
+				reviews[b_id]["reviews"].append(review_dict)
+			except KeyError:
+				reviews[b_id]["reviews"] = [review_dict]
 
 		return reviews 
 
