@@ -22,7 +22,9 @@ $(function() {
       "image_url": review_data[key]["image_url"],
       "city": review_data[key]["city"],
       "name": review_data[key]["name"],
-      "rank": review_data[key]["rank"]
+      "rank": review_data[key]["rank"],
+      "positive": review_data[key]["positive"],
+      "negative": review_data[key]["negative"]
     });
   }
 
@@ -164,6 +166,26 @@ $(function() {
     }).fadeIn();
   }
 
+  fill_metrics = function(data, hotel_id){
+    console.log(hotel_id)
+    console.log(data[hotel_id])
+    var negative = data[hotel_id]["negative"]
+    var positive = data[hotel_id]["positive"]
+    var adjusted_stars = data[hotel_id]["stars"]
+
+    $("#nd-text").fadeOut(function() {
+      $(this).text(negative)
+    }).fadeIn();
+
+    $("pd-text").fadeOut(function() {
+      $(this).text(positive)
+    }).fadeIn();
+
+    $("#adj-stars-text").fadeOut(function() {
+      $(this).text(adjusted_stars)
+    }).fadeIn();
+  }
+
   ///////////////////
 
   var chart;
@@ -263,6 +285,7 @@ $(function() {
   fill_reviews(review_data, hotel_default_id)
   fill_rank(review_data, hotel_default_id)
   fill_rank_table(hotels, hotel_default_id)
+  fill_metrics(hotels, hotel_default_id)
 
   $(".hotel_card").click(function(e){
     $(".hotel_card").removeClass("active")
@@ -270,6 +293,8 @@ $(function() {
     id = $(this).data("id")
     fill_reviews(review_data, id)
     fill_rank(review_data, id)
+    fill_metrics(hotels, id)
+
     update_rank_table(hotels, id)
     e.preventDefault()
   });
