@@ -47,7 +47,8 @@ $(function() {
     hotel_cards.append("div")
       .attr("class", "col-md-6")
       .append("img")
-      .attr("src", function(d){return(d["image_url"])})
+      // .attr("src", function(d){return(d["image_url"])})
+      .attr("src", function(d){return("./img/hotels/"+d["id"] + ".jpg")})
       .attr("height", 80)
       .attr("width", 80)
 
@@ -203,12 +204,12 @@ $(function() {
         ;
         // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
         chart.xAxis
-            .axisLabel("Time (s)")
+            // .axisLabel("Time (s)")
             .tickFormat(d3.format(',.1f'))
             .staggerLabels(true)
         ;
         chart.yAxis
-            .axisLabel('Voltage (v)')
+            // .axisLabel('Voltage (v)')
             .tickFormat(function(d) {
                 if (d == null) {
                     return 'N/A';
@@ -243,14 +244,14 @@ $(function() {
             rand2.push({x: i, y: Math.cos(i/10) + Math.random() / 10 })
         }
         return [
-            {
-                area: true,
-                values: sin,
-                key: "Sine Wave",
-                color: "#ff7f0e",
-                strokeWidth: 4,
-                classed: 'dashed'
-            },
+            // {
+            //     area: true,
+            //     values: sin,
+            //     key: "Sine Wave",
+            //     color: "#ff7f0e",
+            //     strokeWidth: 4,
+            //     classed: 'dashed'
+            // },
             {
                 values: cos,
                 key: "Cosine Wave",
@@ -266,14 +267,14 @@ $(function() {
                 key: "Random Cosine",
                 color: "#667711",
                 strokeWidth: 3.5
-            },
-            {
-                area: true,
-                values: sin2,
-                key: "Fill opacity",
-                color: "#EF9CFB",
-                fillOpacity: .1
             }
+            // {
+            //     area: true,
+            //     values: sin2,
+            //     key: "Fill opacity",
+            //     color: "#EF9CFB",
+            //     fillOpacity: .1
+            // }
         ];
     }
   ///////////////////
