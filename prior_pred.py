@@ -254,17 +254,17 @@ class predict_prior:
 			hotel = self.hotel_predict.iloc[i]
 			b_id = hotel['business_id']
 			r_name = hotel['u_name']
-			r_star = str(hotel['stars'])
+			r_star = str(float(hotel['stars']))
 			r_date = str(hotel['date'].year)+'-'+str(hotel['date'].month)+'-'+str(hotel['date'].day)
 			r_text = hotel['text']
 
 			r_type = "Truthful"
-			if (r_star == '5' or r_star == '4') and len(r_text.split()) > 50:
+			if (r_star == '5.0' or r_star == '4.0') and len(r_text.split()) > 50:
 				prob, r_true = self.get_prediction(r_text,pos_bigram,pos_model,hotel,col_names,WC)
 				r_prob = str(round(float(prob[0][1])))
 				if r_true == 1:
 					r_type = "Positive Deceptive"
-			elif (r_star == '1' or r_star == '2') and len(r_text.split()) > 50:
+			elif (r_star == '1.0' or r_star == '2.0') and len(r_text.split()) > 50:
 				prob, r_true = self.get_prediction(r_text,neg_bigram,neg_model,hotel,col_names,WC)
 				r_prob = str(round(float(prob[0][1])))
 				if r_true == 1:
