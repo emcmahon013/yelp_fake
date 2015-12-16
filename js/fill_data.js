@@ -28,7 +28,7 @@ $(function() {
       "negative": review_data[key]["negative"]
     });
   }
-
+  console.log(hotels)
   hotels.sort(function(x, y){
     return d3.descending(x.rank, y.rank);
   })
@@ -160,7 +160,7 @@ $(function() {
     var rank = hotel_data[hotel_id]["rank"]
 
     $("#ranking-content").fadeOut(function() {
-      $(this).text("Top "+ rank)
+      $(this).text("Top "+ rank + "%")
     }).fadeIn();
   }
 
