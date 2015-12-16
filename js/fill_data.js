@@ -206,8 +206,28 @@ $(function() {
     return(timeline)
     
   }
-  timeline = plot_deceptive_timeline(review_data, hotel_default_id)
 
+  plot_stars_timeline = function(hotel_data, hotel_id){
+    d3.select("#timeline-stars-container svg").remove();
+
+    var raw_stars_ts = hotel_data[hotel_id]["star_ts"]
+    
+    var stars_ts = []
+    var dates = [2007,2008,2009,2010,2011,2012,2013,2014]
+    dates.forEach(function(date,i){
+      stars_ts.push({"x": date, "y": raw_stars_ts["value"][i]});
+    })
+    st_timeline = [{
+                values: stars_ts,
+                key: "Adjusted Stars",
+                color: "#FF9900"
+            }]
+    return(st_timeline)
+    
+  }
+
+  timeline = plot_deceptive_timeline(review_data, hotel_default_id)
+  st_timeline = plot_stars_timeline(review_data, hotel_default_id)
   var deceptive_chart;
     // console.log($("#timeline-type-container"))
     // $("#timeline-type-container").text("")
@@ -235,6 +255,33 @@ $(function() {
         nv.utils.windowResize(deceptive_chart.update);
         return deceptive_chart;
     });
+    var stars_chart;
+    // console.log($("#timeline-type-container"))
+    // $("#timeline-type-container").text("")
+    // console.log($("#timeline-type-container"))
+
+    nv.addGraph(function() {
+        stars_chart = nv.models.lineChart()
+            .options({
+                transitionDuration: 300,
+                useInteractiveGuideline: true
+            })
+        ;
+        // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
+        stars_chart.xAxis.tickValues([2007,2008,2009,2010,2011,2012,2013,2014]);
+
+        stars_chart.showLegend(false);
+        // data = sinAndCos();
+        d3.select('#timeline-stars-container').append('svg')
+            .datum(st_timeline)
+            .call(stars_chart);
+
+        // d3.select('#timeline-stars-container').append('svg')
+            // .datum(data)
+            // .call(chart);
+        nv.utils.windowResize(stars_chart.update);
+        return stars_chart;
+    });
     
   ///////////////////
 
@@ -256,6 +303,7 @@ $(function() {
     fill_rank(review_data, id)
     fill_hotel_metrics(review_data, id)
     timeline = plot_deceptive_timeline(review_data, id)
+    st_timeline = plot_stars_timeline(review_data, id)
 
     var deceptive_chart;
       // console.log($("#timeline-type-container"))
@@ -284,6 +332,35 @@ $(function() {
           nv.utils.windowResize(deceptive_chart.update);
           return deceptive_chart;
       });
+
+    var stars_chart;
+    // console.log($("#timeline-type-container"))
+    // $("#timeline-type-container").text("")
+    // console.log($("#timeline-type-container"))
+
+    nv.addGraph(function() {
+        stars_chart = nv.models.lineChart()
+            .options({
+                transitionDuration: 300,
+                useInteractiveGuideline: true
+            })
+        ;
+        // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
+        stars_chart.xAxis.tickValues([2007,2008,2009,2010,2011,2012,2013,2014]);
+
+        stars_chart.showLegend(false);
+        // data = sinAndCos();
+        d3.select('#timeline-stars-container').append('svg')
+            .datum(st_timeline)
+            .call(stars_chart);
+
+        // d3.select('#timeline-stars-container').append('svg')
+            // .datum(data)
+            // .call(chart);
+        nv.utils.windowResize(stars_chart.update);
+        return stars_chart;
+    });
+    
       
 
     update_rank_table(hotels, id)
