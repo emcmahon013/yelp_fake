@@ -242,6 +242,8 @@ $(function() {
         ;
         // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
         deceptive_chart.xAxis.tickValues([2007,2008,2009,2010,2011,2012,2013,2014]);
+          
+        deceptive_chart.yAxis.tickFormat(d3.format(',.2f'));
 
         deceptive_chart.showLegend(false);
         // data = sinAndCos();
@@ -269,6 +271,8 @@ $(function() {
         ;
         // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
         stars_chart.xAxis.tickValues([2007,2008,2009,2010,2011,2012,2013,2014]);
+
+        stars_chart.yAxis.tickFormat(d3.format(',.2f'));
 
         stars_chart.showLegend(false);
         // data = sinAndCos();
@@ -319,7 +323,7 @@ $(function() {
           ;
           // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
           deceptive_chart.xAxis.tickValues([2007,2008,2009,2010,2011,2012,2013,2014]);
-
+          deceptive_chart.yAxis.tickFormat(d3.format(',.2f'));
           deceptive_chart.showLegend(false);
           // data = sinAndCos();
           d3.select('#timeline-type-container').append('svg')
@@ -347,7 +351,7 @@ $(function() {
         ;
         // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
         stars_chart.xAxis.tickValues([2007,2008,2009,2010,2011,2012,2013,2014]);
-
+        stars_chart.yAxis.tickFormat(d3.format(',.2f'));
         stars_chart.showLegend(false);
         // data = sinAndCos();
         d3.select('#timeline-stars-container').append('svg')
