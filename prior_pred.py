@@ -272,7 +272,7 @@ class predict_prior:
 			else:
 				r_prob = "NA"
 
-			review_dict = {"name":r_name,"stars":r_star,"date":r_date,"review":r_text,"type":r_type,"probability":r_prob}
+			review_dict = {"name":r_name,"star":r_star,"date":r_date,"review":r_text,"type":r_type,"probability":r_prob}
 			try:
 				reviews[b_id]["reviews"].append(review_dict)
 			except KeyError:
