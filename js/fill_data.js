@@ -13,9 +13,9 @@ $(function() {
       });
       return json;
   })(); 
-
+  
+  
   var hotels = []
-  console.log(review_data)
   for(var key in review_data){
     hotels.push({"id":key, 
       "star":review_data[key]["star"],
@@ -28,7 +28,6 @@ $(function() {
       "negative": review_data[key]["negative"]
     });
   }
-  console.log(hotels)
   hotels.sort(function(x, y){
     return d3.descending(x.rank, y.rank);
   })
@@ -183,106 +182,71 @@ $(function() {
     }).fadeIn();
   }
 
-  ///////////////////
+  plot_deceptive_timeline = function(hotel_data, hotel_id){
+    d3.select("#timeline-type-container svg").remove();
+    var raw_positive_ts = hotel_data[hotel_id]["positive_ts"]
+    var raw_negative_ts = hotel_data[hotel_id]["negative_ts"]
+    
+    var positive_ts = []
+    var negative_ts = []
+    raw_positive_ts["date"].forEach(function(date,i){
+      positive_ts.push({"x": date, "y": raw_positive_ts["value"][i]});
+      negative_ts.push({"x": date, "y": raw_negative_ts["value"][i]});
+    })
+    timeline = [{
+                values: positive_ts,
+                key: "Positive Deceptive",
+                color: "#33a02c"
+            },
+            {
+                values: negative_ts,
+                key: "Negative Deceptive",
+                color: "#e31a1c"
+            }]
+    return(timeline)
+    
+  }
+  timeline = plot_deceptive_timeline(review_data, hotel_default_id)
 
-  var chart;
-    var data;
-    var randomizeFillOpacity = function() {
-        var rand = Math.random(0,1);
-        for (var i = 0; i < 100; i++) { // modify sine amplitude
-            data[4].values[i].y = Math.sin(i/(5 + rand)) * .4 * rand - .25;
-        }
-        data[4].fillOpacity = rand;
-        chart.update();
-    };
+  var deceptive_chart;
+    // console.log($("#timeline-type-container"))
+    // $("#timeline-type-container").text("")
+    // console.log($("#timeline-type-container"))
+
     nv.addGraph(function() {
-        chart = nv.models.lineChart()
+        deceptive_chart = nv.models.lineChart()
             .options({
                 transitionDuration: 300,
                 useInteractiveGuideline: true
             })
         ;
         // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
-        chart.xAxis
-            // .axisLabel("Time (s)")
-            .tickFormat(d3.format(',.1f'))
-            .staggerLabels(true)
-        ;
-        chart.yAxis
-            // .axisLabel('Voltage (v)')
-            .tickFormat(function(d) {
-                if (d == null) {
-                    return 'N/A';
-                }
-                return d3.format(',.2f')(d);
-            })
-        ;
-        chart.showLegend(false);
-        data = sinAndCos();
-        d3.select('#timeline-type-container').append('svg')
-            .datum(data)
-            .call(chart);
+        deceptive_chart.xAxis.tickValues([2007,2008,2009,2010,2011,2012,2013,2014]);
 
-        d3.select('#timeline-stars-container').append('svg')
-            .datum(data)
-            .call(chart);
-        nv.utils.windowResize(chart.update);
-        return chart;
+        deceptive_chart.showLegend(false);
+        // data = sinAndCos();
+        d3.select('#timeline-type-container').append('svg')
+            .datum(timeline)
+            .call(deceptive_chart);
+
+        // d3.select('#timeline-stars-container').append('svg')
+            // .datum(data)
+            // .call(chart);
+        nv.utils.windowResize(deceptive_chart.update);
+        return deceptive_chart;
     });
-    function sinAndCos() {
-        var sin = [],
-            sin2 = [],
-            cos = [],
-            rand = [],
-            rand2 = []
-            ;
-        for (var i = 0; i < 100; i++) {
-            sin.push({x: i, y: i % 10 == 5 ? null : Math.sin(i/10) }); //the nulls are to show how defined works
-            sin2.push({x: i, y: Math.sin(i/5) * 0.4 - 0.25});
-            cos.push({x: i, y: .5 * Math.cos(i/10)});
-            rand.push({x:i, y: Math.random() / 10});
-            rand2.push({x: i, y: Math.cos(i/10) + Math.random() / 10 })
-        }
-        return [
-            // {
-            //     area: true,
-            //     values: sin,
-            //     key: "Sine Wave",
-            //     color: "#ff7f0e",
-            //     strokeWidth: 4,
-            //     classed: 'dashed'
-            // },
-            {
-                values: cos,
-                key: "Cosine Wave",
-                color: "#2ca02c"
-            },
-            {
-                values: rand,
-                key: "Random Points",
-                color: "#2222ff"
-            },
-            {
-                values: rand2,
-                key: "Random Cosine",
-                color: "#667711",
-                strokeWidth: 3.5
-            }
-            // {
-            //     area: true,
-            //     values: sin2,
-            //     key: "Fill opacity",
-            //     color: "#EF9CFB",
-            //     fillOpacity: .1
-            // }
-        ];
-    }
+    
+  ///////////////////
+
+
+  
   ///////////////////
   fill_hotels(hotel_default_id);
   fill_reviews(review_data, hotel_default_id)
   fill_rank(review_data, hotel_default_id)
   fill_hotel_metrics(review_data, hotel_default_id)
   fill_rank_table(hotels, hotel_default_id)
+  // plot_deceptive_timeline(review_data, hotel_default_id)
 
   $(".hotel_card").click(function(e){
     $(".hotel_card").removeClass("active")
@@ -291,6 +255,36 @@ $(function() {
     fill_reviews(review_data, id)
     fill_rank(review_data, id)
     fill_hotel_metrics(review_data, id)
+    timeline = plot_deceptive_timeline(review_data, id)
+
+    var deceptive_chart;
+      // console.log($("#timeline-type-container"))
+      // $("#timeline-type-container").text("")
+      // console.log($("#timeline-type-container"))
+
+      nv.addGraph(function() {
+          deceptive_chart = nv.models.lineChart()
+              .options({
+                  transitionDuration: 300,
+                  useInteractiveGuideline: true
+              })
+          ;
+          // chart sub-models (ie. xAxis, yAxis, etc) when accessed directly, return themselves, not the parent chart, so need to chain separately
+          deceptive_chart.xAxis.tickValues([2007,2008,2009,2010,2011,2012,2013,2014]);
+
+          deceptive_chart.showLegend(false);
+          // data = sinAndCos();
+          d3.select('#timeline-type-container').append('svg')
+              .datum(timeline)
+              .call(deceptive_chart);
+
+          // d3.select('#timeline-stars-container').append('svg')
+              // .datum(data)
+              // .call(chart);
+          nv.utils.windowResize(deceptive_chart.update);
+          return deceptive_chart;
+      });
+      
 
     update_rank_table(hotels, id)
     e.preventDefault()
