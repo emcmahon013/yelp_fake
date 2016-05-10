@@ -15,6 +15,10 @@ from sklearn.externals import joblib
 
 #stemmer = EnglishStemmer()
 #STOPWORDS = set((stemmer.stem(w)) for w in stopwords.words('english'))
+"""
+	extracting feature set
+	the final feature set uses bigrams, LIWC, and watson
+"""
 
 def bigram_plus(corpus,ngrams,save,polarity):
 	dictionary = []
@@ -72,6 +76,7 @@ def add_LIWC(polarity,r_order,col_name='Filename'):
 	data = extract_LIWC(polarity)
 	reviews = pd.DataFrame(r_order,columns=[col_name])
 	LIWC = reviews.merge(data,'left')
+	#LIWC.reset_index(inplace=True)
 	return LIWC 
 
 def add_watson(polarity, feat_data):
@@ -81,13 +86,12 @@ def add_watson(polarity, feat_data):
 	watson = feat_data.merge(watson_df, on='Filename',how='outer')
 	return watson
 
-def add_y(data, y):
+def add_y(y):
 	output = pd.DataFrame(y)
 	output = output.transpose()
 	output.columns = ['y_rating','fold']
 	output['Filename'] = output.index
-	feat_data = data.merge(output,'left')
-	return feat_data
+	return output 
 
 
 def features(polarity,version='ott',skew=False,ngrams=(1,2),save=False):
@@ -100,9 +104,19 @@ def features(polarity,version='ott',skew=False,ngrams=(1,2),save=False):
 	feats = add_LIWC(polarity,r_order)
 	if version!= 'ott':
 		feats = add_watson(polarity,feats)
-	feat_data = add_y(feats,y)
-	data = np.hstack((X_ngram,np.matrix(feat_data)[:,1:]))
-	y = np.squeeze(np.asarray(data[:,-2])).astype(int)
+	output= add_y(y)
+	test = np.hstack((np.matrix(feats),X_ngram))
+	X = pd.DataFrame(X_ngram)
+	feat_data = feats.merge(X, left_index=True,right_index=True)
+	if np.matrix(feat_data).all()!=test.all():
+		print('data does not line up')
+		print(np.shape(data))
+		print(np.shape(test))
+		return 
+	data = feat_data.merge(output,'left')
+	if len(X) != len(data):
+		return 
+	y = np.squeeze(np.asarray(data[['y_rating','fold']])).astype(int)
 	return data, y
 
 

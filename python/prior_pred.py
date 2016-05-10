@@ -53,7 +53,7 @@ class predict_prior:
 		return r_prob, r_true 
 
 	def prior_db(self,hotel_pred,prior):
-		years = ["all",2006,2007,2008,2009,2010,2011,2012,2013,2014,2015]
+		years = ["all",2007,2008,2009,2010,2011,2012,2013,2014]
 		if self.up_to != None:
 			years.index(up_to)
 			years = years[:up_to]
@@ -93,7 +93,7 @@ class predict_prior:
 							elif r == 'total_count':
 								d[r].append(hotel_pred[b][year]["total_count"])
 						except KeyError:
-							d[r].append(np.nan)
+							d[r].append(0)
 			for r in rows:
 				hotel_row = [str(b), str(r)] + d[r]
 				hotel_priors.loc[str(b)+str(r)] = hotel_row
@@ -238,7 +238,7 @@ class predict_prior:
 				reviews[b_id]['positive_ts']["value"] = list(t[3:])
 			elif t['value'] == 'negative':
 				reviews[b_id]['negative_ts']["value"] = list(t[3:])
-			elif t['value'] == 'adj_star':
+			elif t['value'] == 'adj_stars':
 				reviews[b_id]['star_ts']["value"] = list(t[3:])
 
 			reviews[b_id]["name"] = business['b_name'][b_id]

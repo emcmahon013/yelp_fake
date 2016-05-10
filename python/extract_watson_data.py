@@ -3,6 +3,9 @@ import json
 import pandas as pd
 import os
 
+"""getting watson tone analyzer to use as part of feature set 
+"""
+
 def watson_request(text):
     base_url = "https://gateway.watsonplatform.net/tone-analyzer-experimental/api/v1/tone"
 

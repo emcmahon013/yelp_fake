@@ -3,6 +3,9 @@ import numpy as np
 import pandas as pd
 import random
 
+"""extract data from the Ott corpus
+"""
+
 def extract(polarity):
 	corpus = {}
 	y = {}
@@ -29,7 +32,7 @@ def extract(polarity):
 									print('ERROR with test outcome.')
 	return corpus, y
 
-def extract_skew(polarity,skew_perc=.3):
+def extract_skew(polarity,skew_perc=.2):
 	skew_n = int(skew_perc*20)
 	corpus = {}
 	y = {}
